@@ -158,20 +158,32 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  // Add focus
+  li.tabIndex = "0";
+
   const image = document.createElement('img');
+  // Add focus
+  image.tabIndex = "0";
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = 'restaurant ' + restaurant.name + ' image';
   li.append(image);
 
   const name = document.createElement('h1');
+  // Add focus
+  name.tabIndex = "0";
   name.innerHTML = restaurant.name;
   li.append(name);
 
   const neighborhood = document.createElement('p');
+  // Add focus
+  neighborhood.tabIndex = "0";
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
 
   const address = document.createElement('p');
+  // Add focus
+  address.tabIndex = "0";
   address.innerHTML = restaurant.address;
   li.append(address);
 
@@ -208,3 +220,13 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/serviceWorker.js')
+  .then( () =>
+    console.log('Service worker registration succeeded'))
+  .catch(error => console.log('Service worker registration failed:', error));
+} else {
+  console.log('Service workers are not supported.');
+}
